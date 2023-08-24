@@ -6,14 +6,5 @@ from .views import MainView
 
 
 urlpatterns = [
-    path('main/',MainView.as_view())
+    path('',MainView.as_view(),name='main')
 ]
-
-urlpatterns += static(
-    settings.STATIC_URL,
-    document_root=settings.STATIC_ROOT
-)
-urlpatterns += static(
-    settings.MEDIA_URL,
-    document_root=settings.MEDIA_ROOT
-)

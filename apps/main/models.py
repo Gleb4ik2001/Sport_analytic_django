@@ -46,7 +46,9 @@ class Team(models.Model):
     )
     logo = models.ImageField(
         verbose_name='логотип',
-        upload_to='logos/'
+        upload_to='logos',
+        null=True,
+        blank=True
     )
     country = models.ForeignKey(
         to=Country,
@@ -141,6 +143,10 @@ class Game(models.Model):
 
     def __str__(self) -> str:
         return f'{self.team1} VS {self.team2} result: {self.result}'
+    class Meta:
+        verbose_name = 'игра'
+        verbose_name_plural = 'игры'
+        ordering = ('-date_time',)
 
 class Stat(models.Model):
     """Stat model"""
@@ -205,6 +211,11 @@ class News(models.Model):
 
     def __str__(self) -> str:
         return f'Заголовок: {self.title} Автор: {self.author}'
+    
+    class Meta:
+        verbose_name = 'новость'
+        verbose_name_plural = 'новости'
+        ordering = ('-publication_date',)
 
 class Analysis(models.Model):
     game = models.ForeignKey(   

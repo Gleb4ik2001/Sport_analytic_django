@@ -1,22 +1,24 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+</head>
     <title>Sport Analytics</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-secondary">
         <div class="container-fluid">
-            <a class="navbar-brand text-black" href="#">Sport Analytics</a>
+            <a class="navbar-brand text-black" href="{% url 'main' %}">Sport Analytics</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarID"aria-controls="navbarID" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarID">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                    <a class="nav-link active text-black" aria-current="page" href="#">Главная</a>
+                    <a class="nav-link active text-black" aria-current="page" href="{% url 'main' %}">Главная</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav">
@@ -29,10 +31,61 @@
                     <a class="nav-link active text-black" aria-current="page" href="#">Команды</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                    <a class="nav-link active text-black" aria-current="page" href="#">Статьи</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>
+    <h3 class="text-center text-primary">Сегодняшние матчи:</h3>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Команда 1/Спортсмен 1</th>
+            <th scope="col">Команда 2/Спортсмен 2</th>
+            <th scope="col">Место проведения</th>
+            <th scope="col">Время проведения</th>
+            <th scope="col">Исход</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for game in games %}
+          <tr>
+            <td>
+            {% if game.team1.logo %}
+            <img src="{{ game.team1.logo.url }}" width="70px" height="100%" alt="">
+            {% endif %}
+                {{ game.team1 }}
+            </td>
+            <td>
+                {% if game.team1.logo %}
+                <img src="{{ game.team2.logo.url }}" width="70px" height="100%"  alt="">
+                {% endif %}
+                {{ game.team2 }}
+            </td>
+            <td>{{ game.venue }}</td>
+            <td>{{ game.date_time }}</td>
+            <td>{{ game.result }}</td>
+          </tr>
+        {% endfor %}
+          <!-- <tr>
+            <th scope="row">2</th>
+            <td>Jacob</td>
+            <td>Thornton</td>
+            <td>@fat</td>
+            <td>@fat1</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td colspan="2">Larry the Bird</td>
+            <td>@twitter</td>
+            <td>@fat</td>
+          </tr> -->
+        </tbody>
+      </table>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 </body>
 </html>
