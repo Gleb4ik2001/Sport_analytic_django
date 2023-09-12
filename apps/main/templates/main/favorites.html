@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-</head>
-    <title>Sport Analytics</title>
+    <title>Document</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light bg-secondary">
@@ -44,52 +43,12 @@
             </div>
         </div>
     </nav>
-    <h3 class="text-center text-primary">Сегодняшние матчи:</h3>
-    <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Команда 1/Спортсмен 1</th>
-            <th scope="col">Команда 2/Спортсмен 2</th>
-            <th scope="col">Место проведения</th>
-            <th scope="col">Время проведения</th>
-            <th scope="col">Исход</th>
-            <th scope="col">Избранное</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for game in games %}
-          <tr>
-            <td>
-            {% if game.team1.logo %}
-            <img src="{{ game.team1.logo.url }}" width="70px" height="100%" alt="">
-            {% endif %}
-                {{ game.team1 }}
-            </td>
-            <td>
-                {% if game.team1.logo %}
-                <img src="{{ game.team2.logo.url }}" width="70px" height="100%"  alt="">
-                {% endif %}
-                {{ game.team2 }}
-            </td>
-            <td>{{ game.venue }}</td>
-            <td>{{ game.date_time }}</td>
-            <td>{{ game.result }}</td>
-            <td>
-              <form action="{% url 'change_status' game.id %}" method="post">
-                {% csrf_token %}
-                {% if game.is_favorite %}
-                  <label for="delete">Убрать из избранного</label>
-                  <input type="submit" name="delete" value="OK">
-                {% else %}
-                  <label for="add">Добавить в избранное</label>
-                  <input type="submit" name="add" value="OK">
-                {% endif %}
-              </form>
-            </td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
+    {% if favorites %}
+    {% for favorite in favorites %}
+    <p>{{ favorite.team1 }} - {{ favorite.team2 }}  datetime: {{ favorite.date_time }}</p>
+    {% endfor %}
+    {% endif %}
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 </body>

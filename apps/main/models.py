@@ -140,6 +140,10 @@ class Game(models.Model):
         verbose_name='результат матча',
         max_length=100
     )
+    is_favorite = models.BooleanField(
+        verbose_name='избранный',
+        default=False
+    )
 
     def __str__(self) -> str:
         return f'{self.team1} VS {self.team2} result: {self.result}'
